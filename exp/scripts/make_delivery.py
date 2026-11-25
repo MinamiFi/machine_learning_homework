@@ -129,13 +129,14 @@ def _rewrite_links(src: Path, dst: Path):
         dst.write_text(new_text, encoding="utf-8")
 
 
-def _copy_tree(src: Path, dst: Path, skip_names=("__pycache__",)):
+def _copy_tree(src: Path, dst: Path, skip_names=("__pycache__",), skip: set[str] = frozenset()):
+    """复制目录树；`skip` 按文件名排除（如运维脚本）。"""
     if not src.is_dir():
         log.warning("跳过（不存在）：%s", src)
         return 0
     n = 0
     for p in src.rglob("*"):
-        if any(s in p.parts for s in skip_names):
+        if any(s in p.parts for s in skip_names) or p.name in skip:
             continue
         if not p.is_file():
             continue
@@ -178,9 +179,15 @@ def build(check_only: bool = False) -> int:
     # 1) 代码
     if not check_only:
         code = out / "code"
+        # 先清空：否则上一轮复制进去、这一轮被 skip 的文件会残留下来
+        if code.exists():
+            shutil.rmtree(code)
         n = 0
         n += _copy_tree(path_of("src"), code / "src")
-        n += _copy_tree(path_of("scripts"), code / "scripts")
+        # 交付包里只放跑实验/生成交付物的脚本；推送与打包脚本是仓库运维工具，
+        # 依赖外部凭据或本地产物，收进包内只会让读者困惑。
+        n += _copy_tree(path_of("scripts"), code / "scripts",
+                        skip={"push_api.py", "make_zip.py", "make_delivery.py"})
         n += _copy_tree(path_of("configs"), code / "configs")
         for f in ("requirements.txt", "requirements-torch.txt", "requirements.lock.txt", "env.sh"):
             if _copy_file(exp_root() / f, code / f):
