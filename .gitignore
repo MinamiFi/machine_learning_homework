@@ -61,6 +61,14 @@ exp/runs/*
 !exp/runs/20261124_081620_jga_api_full/
 !exp/runs/20261124_094210_eval_l2_l2_main_api2/
 
+# ==== 汇报 PPT：pptx 与 pdf 都进仓库（共约 570 KB） ====
+# pdf 由 LibreOffice 转换，但没装 LibreOffice / 中文字体的机器无法重建，
+# 所以把它当作成品提交，供缺字体时直接放映。逐页 PNG 只是校验用，不入库。
+exp/slides/s*.png
+
+# ==== Node：只有 make_ppt.js 需要，node_modules 由 npm install 重建 ====
+exp/node_modules/
+
 # ==== 交付目录：只有两份手写文档进仓库，其余由 make_delivery.py 生成 ====
 # 生成物都是 exp/ 的副本（代码、图、run、parquet、日志），提交会让仓库出现两份相同代码。
 交付/*

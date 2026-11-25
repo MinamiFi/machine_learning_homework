@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """从 exp/ 重建 交付/ 目录（除两份手写文档外的全部内容）。
 
-为什么需要这个脚本：交付包里 `code/`、`figures/`、`results/`、`data_samples/`、
+为什么需要这个脚本：交付包里 `code/`、`figures/`、`ppt/`、`results/`、`data_samples/`、
 `training_logs/`、`ablation/`、`报告/附件/` 都是 `exp/` 的副本或派生物。
 把这些副本提交进 git 会让仓库里出现两份相同代码，读者无法判断哪份是源头。
 所以：**`exp/` 是唯一源头，`交付/` 由本脚本生成**，生成物不进版本库。
@@ -190,6 +190,23 @@ def build(check_only: bool = False) -> int:
     # 2) 图
     if not check_only:
         made["figures"] = _copy_tree(path_of("figures"), out / "figures")
+
+    # 2.5) 汇报 PPT（源在 exp/slides/，由 make_ppt.js 生成）
+    if not check_only:
+        slides = path_of("slides")
+        ppt = out / "ppt"
+        ppt.mkdir(parents=True, exist_ok=True)
+        n = 0
+        if slides.is_dir():
+            # 同时收 pptx 与 pdf：pdf 是 LibreOffice 转的预览，答辩机器没装
+            # 中文字体时用它兜底；两者由 make_ppt.js 与 soffice 生成，不同步手改。
+            for pat in ("*.pptx", "*.pdf"):
+                for f in sorted(slides.glob(pat)):
+                    if _copy_file(f, ppt / f.name):
+                        n += 1
+        else:
+            log.warning("缺少 exp/slides/，跳过 PPT（先跑 node scripts/make_ppt.js）")
+        made["ppt"] = n
 
     # 3) 权威 runs
     if not check_only:

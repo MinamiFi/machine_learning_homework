@@ -107,6 +107,8 @@ exp/
 │   ├── verify_docs.py            # 文档数字自检（181 项，20 秒）
 │   ├── run_all.sh                # 一条命令复现全部实验
 │   ├── make_figures.py           # 出图（7 张，报告/PPT 用）
+│   ├── make_ppt.js               # 生成 16 页汇报 PPT（pptxgenjs + 主题后处理）
+│   ├── md2docx.py                # 报告 md → docx（无 pandoc 环境的轻量转换）
 │   ├── test_src.py               # 四模块单元自检（48 项，1 秒，不加载模型）
 │   └── smoke_test.py             # 三段式自检（加载 Qwen，90 秒）
 ├── src/
@@ -124,6 +126,7 @@ exp/
 │   ├── 标签抽检.md          # 模拟 Cohen's κ（0.43–0.50），明确非人工校验
 │   └── 标签抽检表.csv       # 60 行抽检表（模拟值已填 50 条，10 条分歧留空）
 ├── figures/                 # 报告/PPT 用图（7 张 300dpi PNG，make_figures.py 生成）
+├── slides/                  # 汇报 PPT（题目三_记忆打分_汇报.pptx + pdf 预览）
 ├── models/                  # 模型权重（gitignore）
 ├── .cache/huggingface/      # HF 缓存（gitignore）
 ├── data/                    # MultiWOZ 2.2 + 标签（见 data/README.md）
