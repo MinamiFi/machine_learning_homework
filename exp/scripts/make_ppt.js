@@ -52,6 +52,30 @@ const THEME = {
   },
 };
 
+// ---------- 四人分工（每人约 6 分钟，共 24 分钟 + 提问） ----------
+// 题目是小组作业，汇报也按人切段：每人 4 页，讲完一段再交给下一位。
+// 分工依据是「数据依赖」而不是「页数均分」：
+//   1 号讲清楚要做什么、怎么做 → 2 号讲标签与网络（方法的地基）
+//   3 号讲三组实验的主表（题目要求的指标） → 4 号讲归因与负结果（判断力所在）
+const GROUP = '第 29 组';
+const SPEAKERS = [
+  { no: 1, name: '许兆丞', part: '第一部分', title: '题目、方案与总体结构', minutes: 6, slides: [1, 2, 3, 4] },
+  { no: 2, name: '文萧尧', part: '第二部分', title: '标签构造与打分网络', minutes: 6, slides: [5, 6, 7, 8] },
+  { no: 3, name: '张瑞哲', part: '第三部分', title: '实验结果：四张主表', minutes: 6, slides: [9, 10, 11, 12] },
+  { no: 4, name: '马家源', part: '第四部分', title: '关键发现、负结果与结论', minutes: 6, slides: [13, 14, 15, 16] },
+];
+// 每部分在分工页上的一句话提要（写「讲什么」而不是「讲几页」）
+const PART_BULLETS = [
+  '问题从哪来 · 四模块怎么切\n三组基线为什么这样设\n一句话结论先给出来',
+  '标签为什么不用人工标注\n为什么浅层就够\n两层评测省下多少成本',
+  '固定预算下谁选得准\n压缩到多少 token 仍够用\n三个超参到底有没有影响',
+  'ORACLE 差 46.6 点说明什么\n四处没跑赢的地方\n下一步该改哪里',
+];
+
+// 页码 → 讲者，供页脚标记用（第 1 页是封面，不标）
+const SPEAKER_OF = {};
+for (const sp of SPEAKERS) for (const i of sp.slides) SPEAKER_OF[i] = sp;
+
 const pres = new PptxGenJS();
 pres.layout = 'LAYOUT_WIDE'; // 13.333 x 7.5，必须在加页之前设
 pres.title = '小型神经网络驱动的 Agent 记忆重要性打分与长上下文优化';
@@ -137,55 +161,76 @@ const title = (s, t) => s.addText(t, { placeholder: 'title' });
   txt(s, '题目 3 ｜ MultiWOZ 2.2 ｜ 浅层全连接打分网络 + 预算内记忆过滤', { x: 0.9, y: 4.35, w: 9.0, h: 0.4, fontSize: 14, color: SAND });
 
   s.addShape(S.line, { x: 0.9, y: 5.15, w: 3.2, h: 0, line: { color: '3D4E6B', width: 1 } });
-  txt(s, '汇报人：____________　　学号：____________', { x: 0.9, y: 5.4, w: 7.5, h: 0.34, fontSize: 12.5, color: 'B9C4D6' });
-  txt(s, '2026 年 11 月', { x: 0.9, y: 5.8, w: 5, h: 0.32, fontSize: 12.5, color: '9AA9C0' });
+  txt(s, `${GROUP}　｜　许兆丞　文萧尧　张瑞哲　马家源`, { x: 0.9, y: 5.32, w: 9.0, h: 0.34, fontSize: 13, color: 'B9C4D6' });
+  txt(s, '汇报安排：四人接力，每人 6 分钟', { x: 0.9, y: 5.7, w: 9.0, h: 0.32, fontSize: 11.5, color: '9AA9C0' });
+  txt(s, '2026 年 11 月', { x: 0.9, y: 6.06, w: 5, h: 0.32, fontSize: 11.5, color: '8A99B0' });
 
-  s.addNotes(
-    '开场：题目三要解决的是长对话里上下文溢出与记忆冗余。我们的做法是用一个浅层全连接网络给每个历史片段打分，' +
-    '在固定 token 预算下按分数筛选。这次汇报的重点不只是「指标多少」，还包括两个诚实的负结果。'
+s.addNotes(
+    '【许兆丞 · 0:00–0:30】开场 30 秒。\n' +
+    '先说三件事：我们做的是题目三，数据集 MultiWOZ 2.2，四个人接力讲。\n' +
+    '然后立刻进入路线图，不要在这里展开技术细节。'
   );
 }
 
+pres.addSection({ title: '第一部分 · 题目与方案' });
+
 // ============================================================
-// 2. 大纲
+// 2. 分工总览
 // ============================================================
 {
-  pres.addSection({ title: '概览' });
-  const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: '概览' });
-  title(s, '这次汇报讲五件事');
+  const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: '第一部分 · 题目与方案' });
+  title(s, '四人接力，每人 6 分钟');
 
-  const items = [
-    ['01', '题目要什么，我们交了什么', '4 条必做 + 2 条选做的逐条对照'],
-    ['02', '方法：四模块与一条弱监督标签', 'memory / scorer / agent / eval'],
-    ['03', '评测：为什么拆成两层', 'L1 选择质量零 LLM 成本，L2 任务完成率要 LLM'],
-    ['04', '结果：从「选得对」到「答得对」', 'L1 主表、预算扫描、消融、L2 主表'],
-    ['05', '关键发现与负结果', 'ORACLE 差距的归因，以及四处没跑赢的地方'],
-  ];
-  items.forEach(([n, h, d], i) => {
-    const y = 1.72 + i * 1.02;
-    txt(s, n, { x: 0.78, y, w: 0.75, h: 0.5, fontSize: 22, bold: true, color: AMBER, fontFace: HEAD });
-    txt(s, h, { x: 1.62, y: y - 0.03, w: 5.6, h: 0.42, fontSize: 17, bold: true, color: INK });
-    txt(s, d, { x: 1.62, y: y + 0.36, w: 7.4, h: 0.34, fontSize: 12.5, color: SLATE });
+  txt(s, '按「数据依赖」切段而不是按页数均分：前一位讲完的地基，正好是后一位要用的前提。', {
+    x: 0.78, y: 1.44, w: 11.8, h: 0.3, fontSize: 11.5, color: SLATE,
   });
 
-  // 右侧：一句话结论
-  s.addShape(S.roundRect, { x: 9.35, y: 1.72, w: 3.2, h: 4.5, fill: { color: INK }, line: { color: INK }, rectRadius: 0.06 });
-  txt(s, '一句话结论', { x: 9.6, y: 1.95, w: 2.7, h: 0.3, fontSize: 11, color: AMBER, bold: true });
-  txt(s, '打分网络有效，\n但瓶颈不在网络，\n在「区分对话归属」。', {
-    x: 9.6, y: 2.35, w: 2.7, h: 1.5, fontSize: 15.5, bold: true, color: PAPER, fontFace: HEAD, lineSpacingMultiple: 1.35,
-  });
-  txt(s, 'ORACLE 只用 216 token\n就到 84.4%，\nB2 用 1,489 token 是 37.8%。', {
-    x: 9.6, y: 4.15, w: 2.7, h: 1.3, fontSize: 11.5, color: 'B9C4D6', lineSpacingMultiple: 1.3,
+  // 四张卡片横向排开，每张 = 一位讲者
+  // 4*cw + 3*gap 必须落在 [0.78, 12.55] 内，否则最后一张卡会出画布
+  const cw = 2.71, gap = 0.3, y0 = 1.95;
+  SPEAKERS.forEach((sp, i) => {
+    const x = 0.78 + i * (cw + gap);
+    const isLast = i === SPEAKERS.length - 1;
+    s.addShape(S.roundRect, { x, y: y0, w: cw, h: 2.98, fill: { color: MIST }, line: { color: MIST }, rectRadius: 0.06 });
+    // 顶部色条：越靠后颜色越深，暗示「从方法到判断」
+    s.addShape(S.rect, { x, y: y0, w: cw, h: 0.09, fill: { color: [AMBER, TEAL, SLATE, INK][i] }, line: { color: [AMBER, TEAL, SLATE, INK][i] } });
+
+    txt(s, `${sp.part}　${sp.minutes} 分钟`, { x: x + 0.22, y: y0 + 0.24, w: cw - 0.44, h: 0.26, fontSize: 10, color: SLATE, bold: true, charSpacing: 0.6 });
+    txt(s, sp.name, { x: x + 0.22, y: y0 + 0.56, w: cw - 0.44, h: 0.44, fontSize: 21, bold: true, color: INK, fontFace: HEAD });
+    txt(s, sp.title, { x: x + 0.22, y: y0 + 1.08, w: cw - 0.44, h: 0.82, fontSize: 12, color: INK2, lineSpacingMultiple: 1.32 });
+
+    const first = sp.slides[0], last = sp.slides[sp.slides.length - 1];
+    txt(s, `第 ${first}–${last} 页`, { x: x + 0.22, y: y0 + 1.62, w: cw - 0.44, h: 0.26, fontSize: 10, color: SLATE });
+    txt(s, PART_BULLETS[i], { x: x + 0.22, y: y0 + 1.96, w: cw - 0.44, h: 0.94, fontSize: 10, color: INK2, lineSpacingMultiple: 1.42 });
+    if (i < SPEAKERS.length - 1) {
+      s.addShape(S.rightArrow, { x: x + cw + 0.035, y: y0 + 1.7, w: 0.23, h: 0.2, fill: { color: 'C9D0DA' }, line: { color: 'C9D0DA' } });
+    }
   });
 
-  s.addNotes('先给结论，后面再展开证据。提醒听众：46.6 个百分点是任务难度的上界，不是方法差距。');
+  // 底部：交接语，提醒每人结尾要留给下一位什么
+  s.addShape(S.roundRect, { x: 0.78, y: 5.32, w: 11.8, h: 0.9, fill: { color: INK }, line: { color: INK }, rectRadius: 0.05 });
+  txt(s, '交接约定', { x: 1.02, y: 5.45, w: 1.2, h: 0.26, fontSize: 10, color: AMBER, bold: true });
+  txt(s, '每人最后一句话必须是「交给下一位的问题」：①为什么是浅层网络 ②为什么拆两层评测 ③瓶颈到底在哪 ④还差什么', {
+    x: 2.2, y: 5.43, w: 10.15, h: 0.3, fontSize: 10.5, color: 'D7DEEA',
+  });
+  txt(s, '这样四段不是四份独立汇报，而是一条连续的推理链。', {
+    x: 2.2, y: 5.76, w: 10.15, h: 0.3, fontSize: 9.5, color: '8A99B0',
+  });
+
+s.addNotes(
+    '【许兆丞 · 0:30–2:00】分工页，90 秒。\n' +
+    '重点讲「为什么这样切」：不是按页数均分，是按数据依赖。\n' +
+    '第 1 部分给问题与方法骨架，第 2 部分给地基（标签与网络），第 3 部分给题目要的三指标，第 4 部分给归因。\n' +
+    '最后点一下交接约定：每人结尾留一个问题给下一位，四段是一条推理链。\n' +
+    '交接语：「下面请文萧尧讲我们怎么把对话变成可训练的数据。」'
+  );
 }
 
 // ============================================================
 // 3. 题目要求 vs 交付
 // ============================================================
 {
-  const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: '概览' });
+  const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: '第一部分 · 题目与方案' });
   title(s, '题目要什么，我们交了什么');
 
   txt(s, '必做要求', { x: 0.78, y: 1.5, w: 6.2, h: 0.3, fontSize: 12, bold: true, color: AMBER, charSpacing: 1.5 });
@@ -193,7 +238,7 @@ const title = (s, t) => s.addText(t, { placeholder: 'title' });
     ['搭建具备记忆模块的对话智能体，搭建向量检索记忆库', '四模块齐全：memory / scorer / agent / eval'],
     ['构造记忆样本数据集，训练全连接打分网络', '65,213 轮弱监督样本，384→256→256→1'],
     ['三组基线：全量 / 仅检索 / 检索+打分', 'B0 / B1 / B2，另加 6 组零成本基线'],
-    ['消融：层数 / 学习率 / L2 正则 → 三指标', '12 个配置 × 3 seeds，结论见第 10 页'],
+    ['消融：层数 / 学习率 / L2 正则 → 三指标', '12 个配置 × 3 seeds，结论见第 11 页'],
   ];
   must.forEach(([h, d], i) => {
     const y = 1.88 + i * 1.16;
@@ -206,7 +251,7 @@ const title = (s, t) => s.addText(t, { placeholder: 'title' });
   s.addShape(S.roundRect, { x: 7.45, y: 1.5, w: 5.1, h: 2.62, fill: { color: MIST }, line: { color: MIST }, rectRadius: 0.06 });
   txt(s, '选做拓展', { x: 7.7, y: 1.68, w: 4.6, h: 0.28, fontSize: 11.5, bold: true, color: INK });
   txt(s, '① 注入错误记忆观察失效场景', { x: 7.7, y: 2.04, w: 4.6, h: 0.28, fontSize: 12, color: INK2 });
-  txt(s, '⚠ 部分完成 — 第 12 页的冲突干扰分析', { x: 7.95, y: 2.3, w: 4.4, h: 0.26, fontSize: 10.5, color: BRICK });
+  txt(s, '⚠ 部分完成 — 第 13 页的冲突干扰分析', { x: 7.95, y: 2.3, w: 4.4, h: 0.26, fontSize: 10.5, color: BRICK });
   txt(s, '② 打分基础上加记忆摘要压缩', { x: 7.7, y: 2.66, w: 4.6, h: 0.28, fontSize: 12, color: INK2 });
   txt(s, '✗ 未做 — 时间优先给了标签校验', { x: 7.95, y: 2.92, w: 4.4, h: 0.26, fontSize: 10.5, color: BRICK });
   txt(s, '这两条如实标注，不假装完成。', { x: 7.7, y: 3.36, w: 4.6, h: 0.3, fontSize: 10.5, color: SLATE, italic: true });
@@ -217,15 +262,19 @@ const title = (s, t) => s.addText(t, { placeholder: 'title' });
     x: 7.7, y: 4.82, w: 4.6, h: 1.4, fontSize: 11.5, color: 'D7DEEA', lineSpacingMultiple: 1.45,
   });
 
-  s.addNotes('逐条对照题目，选做两条如实说明完成度。这里主动暴露未完成项，避免被追问时被动。');
+s.addNotes(
+    '【许兆丞 · 2:00–3:30】题目要求对照，90 秒。\n' +
+    '四条必做逐条说我们怎么做的，一句话一条，不要念细节。\n' +
+    '选做两条主动说明：① 部分完成 ② 未做。这里不要含糊，被追问更被动。\n' +
+    '交付物 6 项一句带过。'
+  );
 }
 
 // ============================================================
 // 4. 方法总览
 // ============================================================
 {
-  pres.addSection({ title: '方法' });
-  const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: '方法' });
+  const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: '第一部分 · 题目与方案' });
   title(s, '四模块，依赖单向');
 
   const mods = [
@@ -253,14 +302,21 @@ const title = (s, t) => s.addText(t, { placeholder: 'title' });
     x: 0.78, y: 5.6, w: 11.8, h: 0.34, fontSize: 12.5, color: SLATE,
   });
 
-  s.addNotes('强调两点：一是依赖单向带来的成本优势，二是 select() 抽出来保证基线可比。');
+s.addNotes(
+    '【许兆丞 · 3:30–5:30】四模块，2 分钟。这是第 1 部分的技术落点。\n' +
+    '讲两件事：① 依赖单向，所以 L1 评测可以不加载 LLM，17 秒压到毫秒级；② select() 单独成函数，七组基线共用同一截断逻辑，唯一变量是 scores 从哪来。\n' +
+    '这两点是后面所有实验可比的前提。\n' +
+    '交接语：「为什么用浅层网络就够？请文萧尧从标签说起。」'
+  );
 }
+
+pres.addSection({ title: '第二部分 · 标签与网络' });
 
 // ============================================================
 // 5. 标签从哪来
 // ============================================================
 {
-  const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: '方法' });
+  const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: '第二部分 · 标签与网络' });
   title(s, '标签：belief state 差分，三行代码');
 
   s.addShape(S.roundRect, { x: 0.78, y: 1.55, w: 7.0, h: 2.28, fill: { color: INK }, line: { color: INK }, rectRadius: 0.06 });
@@ -290,18 +346,33 @@ const title = (s, t) => s.addText(t, { placeholder: 'title' });
     x: 8.32, y: 3.76, w: 4.1, h: 0.7, fontSize: 10.5, color: INK2, lineSpacingMultiple: 1.3,
   });
 
-  txt(s, '标签标的是「引入」而非「必要」：集合覆盖显示 49.2% 的轮次可删。这个偏差在第 13、14 页会展开。', {
-    x: 0.78, y: 4.75, w: 7.0, h: 0.5, fontSize: 11.5, color: SLATE, lineSpacingMultiple: 1.3,
+  // 分工页承诺「标签为什么不用人工标注」，这里给三条对照，填掉左下空白
+  const why = [
+    ['65,213 条', '人工标注按每条 8 秒算要 145 小时，且跨标注员一致性无法保证'],
+    ['规则可复核', '任何人拿 states_22 重跑三行代码，得到逐位相同的标签，不需要第二个人'],
+    ['代价是偏差', '标的是「引入」不是「必要」：集合覆盖显示 49.2% 的轮次可删 —— 第 8 页用三个口径量化'],
+  ];
+  why.forEach(([k, v], i) => {
+    const y = 5.05 + i * 0.5;
+    txt(s, k, { x: 0.78, y, w: 1.72, h: 0.3, fontSize: 11, bold: true, color: AMBER });
+    txt(s, v, { x: 2.55, y, w: 5.35, h: 0.3, fontSize: 10.5, color: INK2 });
   });
 
-  s.addNotes('标签只读 states_22，不读文本，所以数据对齐修正不影响标签逻辑。位置偏置是最容易被质疑的点，主动讲。');
+
+
+s.addNotes(
+    '【文萧尧 · 0:00–1:30】标签怎么来，90 秒。\n' +
+    '三行代码讲清楚：第 t 轮重要 ⟺ 引入状态变化，且至少一个 slot 到对话结束仍有效。\n' +
+    '两个数字：65,213 轮，正例率 55.6%（比预估高很多）。\n' +
+    '必须主动讲位置偏置：turn 0 正例率 85% → turn 10 只剩 16%，这条零成本规则的 AUC 就有 0.8172。不讲会被问。'
+  );
 }
 
 // ============================================================
 // 6. 打分网络
 // ============================================================
 {
-  const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: '方法' });
+  const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: '第二部分 · 标签与网络' });
   title(s, '打分网络：384 → 256 → 256 → 1');
 
   const boxes = [['384', '句向量\n(all-MiniLM-L6-v2)'], ['256', 'Linear + GELU\n+ Dropout 0.1'], ['256', 'Linear + GELU\n+ Dropout 0.1'], ['1', 'logit']];
@@ -322,18 +393,30 @@ const title = (s, t) => s.addText(t, { placeholder: 'title' });
   txt(s, '165,377', { x: 10.12, y: 3.86, w: 2.24, h: 0.44, fontSize: 22, bold: true, color: AMBER, fontFace: HEAD });
   txt(s, '个参数（2 层配置）\n1 层只有 99,585', { x: 10.12, y: 4.34, w: 2.24, h: 0.8, fontSize: 10.5, color: INK2, lineSpacingMultiple: 1.3 });
 
+  // 分工页承诺「为什么浅层就够」，这里给出论证，同时填掉下方空白
+  s.addShape(S.roundRect, { x: 0.78, y: 5.86, w: 11.8, h: 0.66, fill: { color: 'FBF3E6' }, line: { color: 'FBF3E6' }, rectRadius: 0.05 });
+  txt(s, '为什么浅层就够', { x: 1.0, y: 5.98, w: 1.7, h: 0.28, fontSize: 11, bold: true, color: BRICK });
+  txt(s, '判据是「这轮有没有引入状态变化」，属低阶特征，384 维句向量里已近似线性可分 —— 加深只增参数不加信息。第 11 页消融验证：1 层 0.9352 反而最高。', {
+    x: 2.7, y: 5.96, w: 9.7, h: 0.46, fontSize: 10.5, color: INK2, lineSpacingMultiple: 1.3,
+  });
+
   txt(s, '训练细节：pos_weight = 0.7993（负 25,159 / 正 31,477）。正例率过半，所以 pos_weight 不能按「负/正」算，方向会反。', {
     x: 0.78, y: 5.5, w: 11.8, h: 0.34, fontSize: 11.5, color: SLATE,
   });
 
-  s.addNotes('输入是预训练句向量，判据主要是「这轮有没有引入状态变化」，属低阶特征，所以浅层就够。');
+s.addNotes(
+    '【文萧尧 · 1:30–3:00】打分网络，90 秒。\n' +
+    '结构一句话：384 维句向量 → 256 → 256 → 1，16.5 万参数。\n' +
+    '三个数字对比：test AUC 0.9332 vs 位置基线 0.8172，净优势 +0.1160。\n' +
+    '回答上一位的问题：为什么浅层就够 —— 判据是「这轮有没有引入状态变化」，属低阶特征，加深只增参数（第 11 页消融会验证）。'
+  );
 }
 
 // ============================================================
 // 7. 两层评测
 // ============================================================
 {
-  const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: '方法' });
+  const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: '第二部分 · 标签与网络' });
   title(s, '为什么把评测拆成两层');
 
   // 左：L1
@@ -361,15 +444,56 @@ const title = (s, t) => s.addText(t, { placeholder: 'title' });
     x: 0.78, y: 5.75, w: 11.8, h: 0.34, fontSize: 11.5, color: SLATE,
   });
 
-  s.addNotes('这一页解释为什么表里有两套指标。也顺便说明 0.5B 只能打通管线，不能出主表。');
+s.addNotes(
+    '【文萧尧 · 3:00–4:30】两层评测，90 秒。\n' +
+    '核心论点：L1 零 LLM 成本，可以跑全量、随时重跑；L2 要 LLM，只能跑子集。\n' +
+    '所以策略是先用 L1 全量扫，赢不过位置基线就停下来改标签 —— 把「发现方法不行」从 8 小时压到 1 分钟。\n' +
+    '顺带说明 0.5B 只能打通管线（绝对 JGA 0.589），主表用 DeepSeek-V4.1-Flash（0.9174）。'
+  );
 }
 
 // ============================================================
-// 8. L1 主表
+// 8. 标签三口径
 // ============================================================
 {
-  pres.addSection({ title: '结果' });
-  const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: '结果' });
+  const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: '第二部分 · 标签与网络' });
+  title(s, '标签可信吗：三个独立口径，方向一致');
+
+  const cols = [
+    ['口径一', '反事实删除（覆盖率）', '10.56×', '同分母配对下，删重要轮的信息丢失率是删不重要轮的倍数', 'test 10.56× · dev 13.23× · train 10.71×', AMBER],
+    ['口径二', 'JGA（LLM 答题）', '−0.6755', '删重要轮后答对率从 0.9174 掉到 0.2477（p<0.001）', '607 段 / 1,332 槽位 / DeepSeek-V4.1-Flash', TEAL],
+    ['口径三', '模拟抽检（Cohen κ）', '0.43–0.50', '标签与两个规则判据的中等一致（非人工校验）', 'κ(J2,J3)=0.707 说明判据本身稳定', SLATE],
+  ];
+  cols.forEach(([k, name, big, desc, foot, col], i) => {
+    const x = 0.78 + i * 4.05;
+    s.addShape(S.roundRect, { x, y: 1.5, w: 3.85, h: 4.1, fill: { color: MIST }, line: { color: MIST }, rectRadius: 0.06 });
+    txt(s, k, { x: x + 0.24, y: 1.66, w: 3.4, h: 0.26, fontSize: 10, color: col, bold: true, charSpacing: 1.2 });
+    txt(s, name, { x: x + 0.24, y: 1.94, w: 3.4, h: 0.34, fontSize: 12.5, bold: true, color: INK });
+    txt(s, big, { x: x + 0.24, y: 2.4, w: 3.4, h: 0.72, fontSize: 30, bold: true, color: col, fontFace: HEAD });
+    txt(s, desc, { x: x + 0.24, y: 3.2, w: 3.4, h: 1.0, fontSize: 10.5, color: INK2, lineSpacingMultiple: 1.35 });
+    txt(s, foot, { x: x + 0.24, y: 4.5, w: 3.4, h: 0.7, fontSize: 9.5, color: SLATE, lineSpacingMultiple: 1.3 });
+  });
+
+  txt(s, '为什么值得做：如果标签是错的，前面所有结论都不成立。', { x: 0.78, y: 5.78, w: 11.8, h: 0.3, fontSize: 11.5, bold: true, color: INK });
+  txt(s, '两个必须说明的限定：① κ 是模拟值，不是人工校验（用户已明确无时间，CSV 已导出 60 条待填）② 标签标的是「引入」而非「必要」，49.2% 的轮次在集合覆盖下可删。', {
+    x: 0.78, y: 6.12, w: 11.8, h: 0.5, fontSize: 10.5, color: SLATE, lineSpacingMultiple: 1.3,
+  });
+
+s.addNotes(
+    '【文萧尧 · 4:30–6:00】标签三口径，90 秒。这是第 2 部分的收尾。\n' +
+    '三个独立口径方向一致才敢用这个标签：反事实 10.56 倍、JGA −0.6755、模拟 κ 0.43–0.50。\n' +
+    '主动说限定：κ 是模拟值不是人工校验；标签标的是「引入」而非「必要」，49.2% 轮次可删。\n' +
+    '交接语：「标签可信了，那选得准不准、答得对不对？请张瑞哲给三张主表。」'
+  );
+}
+
+pres.addSection({ title: '第三部分 · 实验结果' });
+
+// ============================================================
+// 9. L1 主表
+// ============================================================
+{
+  const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: '第三部分 · 实验结果' });
   title(s, 'L1：固定预算下，谁把关键信息选进来了');
 
   s.addChart(
@@ -409,14 +533,19 @@ const title = (s, t) => s.addText(t, { placeholder: 'title' });
     txt(s, '· ' + t, { x: 8.45, y: 4.14 + i * 0.6, w: 4.13, h: 0.58, fontSize: 10, color: INK2, lineSpacingMultiple: 1.25 });
   });
 
-  s.addNotes('L1 是零 LLM 成本的，可以跑全量。注意 L=512 的 0.5333 是短板，后面会再提。');
+s.addNotes(
+    '【张瑞哲 · 0:00–1:30】L1 主表，90 秒。\n' +
+    '跨长度 CR：B2 0.7667，比纯检索高 28.9 个百分点。\n' +
+    '三条观察要分开说，尤其是第一条负结果：「优势随历史变长而扩大」不成立，1.43× → 1.92× → 1.60× 非单调。\n' +
+    'L=512 的 0.5333 是短板，后面还会提。'
+  );
 }
 
 // ============================================================
-// 9. 预算扫描
+// 10. 预算扫描
 // ============================================================
 {
-  const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: '结果' });
+  const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: '第三部分 · 实验结果' });
   title(s, '预算扫描：压缩越狠，优势越大 —— 但有例外');
 
   // 用分组柱而非折线：B=256 处三条线挤在 0.03–0.08，折线的数据标签会互相压住。
@@ -457,14 +586,19 @@ const title = (s, t) => s.addText(t, { placeholder: 'title' });
     x: 0.78, y: 6.3, w: 11.8, h: 0.3, fontSize: 11, color: INK2,
   });
 
-  s.addNotes('这一页的负结果必须讲：极低预算下打分器不如余弦。这是真实存在的边界，不是调参能解决的。');
+s.addNotes(
+    '【张瑞哲 · 1:30–3:00】预算扫描，90 秒。\n' +
+    '一句话结论：压缩越狠优势越大，但有例外。\n' +
+    '正面：B=1024/2048 的 6 个格子 B2 全部第一。\n' +
+    '负面：B=256 的 3 个格子里有 2 个 B2 输给余弦 —— 只够放 8–9 个片段时，稠密打分器排序精度不如直接对齐 query。这是真实边界，不是调参能解决。'
+  );
 }
 
 // ============================================================
-// 10. 消融
+// 11. 消融
 // ============================================================
 {
-  const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: '结果' });
+  const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: '第三部分 · 实验结果' });
   title(s, '消融：三个超参都没有显著影响');
 
   const head = ['因素', '取值', 'test AUC', '标准差', '参数量'].map((t) => ({
@@ -512,14 +646,19 @@ const title = (s, t) => s.addText(t, { placeholder: 'title' });
     txt(s, v, { x: 8.35, y: 3.94 + i * 0.95, w: 4.23, h: 0.68, fontSize: 10, color: INK2, lineSpacingMultiple: 1.25 });
   });
 
-  s.addNotes('L2 正则那条要讲清楚：不是「L2 无用」，而是在当前早停设置下平凡成立，不能外推。');
+s.addNotes(
+    '【张瑞哲 · 3:00–4:30】消融，90 秒。\n' +
+    '三个超参都没有显著影响：AUC 最大跨度 0.0013，种子间标准差 0.0007，同量级。\n' +
+    '层数那条要讲出意思：1 层反而最高（0.9352），题目写「浅层」不是妥协是正解。\n' +
+    'L2 正则那条讲清楚：不是「L2 无用」，而是早停先触发、正则没机会起作用，不能外推。'
+  );
 }
 
 // ============================================================
-// 11. L2 主表
+// 12. L2 主表
 // ============================================================
 {
-  const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: '结果' });
+  const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: '第三部分 · 实验结果' });
   title(s, 'L2：把上下文压到 20%，准确率反而更高');
 
   s.addChart(
@@ -566,14 +705,21 @@ const title = (s, t) => s.addText(t, { placeholder: 'title' });
     x: 0.78, y: 6.28, w: 11.8, h: 0.3, fontSize: 11, color: BRICK,
   });
 
-  s.addNotes('这一页是题目要求的三指标主表。主动说 p=0.6964，别让评审先问出来。');
+s.addNotes(
+    '【张瑞哲 · 4:30–6:00】L2 主表，90 秒。这是题目要求的三指标主表。\n' +
+    '正面结论：压缩 4.9 倍，slot_acc 还涨 5.6 个百分点（1,489 token / 0.3778 对 7,277 token / 0.3222）。\n' +
+    '必须主动说配对结果：B2 唯一显著赢的是位置基线（B2−R0 p<0.0001），对纯检索只高 2.2 个百分点且不显著（p=0.6964）。\n' +
+    '交接语：「为什么压到 20% 还只有 37.8%？请马家源拆这个差距。」'
+  );
 }
 
+pres.addSection({ title: '第四部分 · 发现与结论' });
+
 // ============================================================
-// 12. ORACLE 关键发现
+// 13. ORACLE 关键发现
 // ============================================================
 {
-  const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: '结果' });
+  const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: '第四部分 · 发现与结论' });
   title(s, '瓶颈不在网络，在「区分对话归属」');
 
   const cards = [
@@ -607,44 +753,20 @@ const title = (s, t) => s.addText(t, { placeholder: 'title' });
     x: 6.8, y: 5.86, w: 5.78, h: 0.5, fontSize: 10.5, color: AMBER, lineSpacingMultiple: 1.3,
   });
 
-  s.addNotes('这是全场最重要的一页。ORACLE 是作弊基线，要说明清楚它是上界而不是对手。');
-}
-
-// ============================================================
-// 13. 标签三口径
-// ============================================================
-{
-  const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: '结果' });
-  title(s, '标签可信吗：三个独立口径，方向一致');
-
-  const cols = [
-    ['口径一', '反事实删除（覆盖率）', '10.56×', '同分母配对下，删重要轮的信息丢失率是删不重要轮的倍数', 'test 10.56× · dev 13.23× · train 10.71×', AMBER],
-    ['口径二', 'JGA（LLM 答题）', '−0.6755', '删重要轮后答对率从 0.9174 掉到 0.2477（p<0.001）', '607 段 / 1,332 槽位 / DeepSeek-V4.1-Flash', TEAL],
-    ['口径三', '模拟抽检（Cohen κ）', '0.43–0.50', '标签与两个规则判据的中等一致（非人工校验）', 'κ(J2,J3)=0.707 说明判据本身稳定', SLATE],
-  ];
-  cols.forEach(([k, name, big, desc, foot, col], i) => {
-    const x = 0.78 + i * 4.05;
-    s.addShape(S.roundRect, { x, y: 1.5, w: 3.85, h: 4.1, fill: { color: MIST }, line: { color: MIST }, rectRadius: 0.06 });
-    txt(s, k, { x: x + 0.24, y: 1.66, w: 3.4, h: 0.26, fontSize: 10, color: col, bold: true, charSpacing: 1.2 });
-    txt(s, name, { x: x + 0.24, y: 1.94, w: 3.4, h: 0.34, fontSize: 12.5, bold: true, color: INK });
-    txt(s, big, { x: x + 0.24, y: 2.4, w: 3.4, h: 0.72, fontSize: 30, bold: true, color: col, fontFace: HEAD });
-    txt(s, desc, { x: x + 0.24, y: 3.2, w: 3.4, h: 1.0, fontSize: 10.5, color: INK2, lineSpacingMultiple: 1.35 });
-    txt(s, foot, { x: x + 0.24, y: 4.5, w: 3.4, h: 0.7, fontSize: 9.5, color: SLATE, lineSpacingMultiple: 1.3 });
-  });
-
-  txt(s, '为什么值得做：如果标签是错的，前面所有结论都不成立。', { x: 0.78, y: 5.78, w: 11.8, h: 0.3, fontSize: 11.5, bold: true, color: INK });
-  txt(s, '两个必须说明的限定：① κ 是模拟值，不是人工校验（用户已明确无时间，CSV 已导出 60 条待填）② 标签标的是「引入」而非「必要」，49.2% 的轮次在集合覆盖下可删。', {
-    x: 0.78, y: 6.12, w: 11.8, h: 0.5, fontSize: 10.5, color: SLATE, lineSpacingMultiple: 1.3,
-  });
-
-  s.addNotes('三个口径方向一致才敢用这个标签。κ 那条要主动说「不是人工校验」，避免误导。');
+s.addNotes(
+    '【马家源 · 0:00–2:00】ORACLE 关键发现，2 分钟。这是全场最重要的一页。\n' +
+    '三张卡：ORACLE 216 token 到 0.8444；B2 1,489 token 0.3778；B0FULL 7,277 token 0.3222。\n' +
+    '46.6 个百分点不是「方法不够好」，是任务难度上界。\n' +
+    '证据链要讲清：不是没选到（30 个场景主对话段只漏选 36 段，needle 全选中），是 33 个组合含「同槽位不同值」的冲突轮把模型带偏了。\n' +
+    'B0FULL 是最直接证据：给全量上下文反而更差。'
+  );
 }
 
 // ============================================================
 // 14. 负结果
 // ============================================================
 {
-  const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: '结果' });
+  const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: '第四部分 · 发现与结论' });
   title(s, '四处没跑赢的地方');
 
   const negs = [
@@ -665,15 +787,19 @@ const title = (s, t) => s.addText(t, { placeholder: 'title' });
     x: 0.78, y: 6.5, w: 11.8, h: 0.28, fontSize: 10, color: SLATE,
   });
 
-  s.addNotes('这一页专门放负结果。评审最可能追问的就是这些，先讲比被问出来好。');
+s.addNotes(
+    '【马家源 · 2:00–3:30】四处没跑赢，90 秒。\n' +
+    '这一页专门放负结果，因为评审最可能追问这些。\n' +
+    '四条按顺序快速过，每条一句：不显著、低预算不如余弦、L=512 收窄、删噪声有益在强模型上消失。\n' +
+    '态度要坦率：它们限定了方法的适用范围。'
+  );
 }
 
 // ============================================================
 // 15. 结论
 // ============================================================
 {
-  pres.addSection({ title: '结论' });
-  const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: '结论' });
+  const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: '第四部分 · 发现与结论' });
   title(s, '五条结论');
 
   const cs = [
@@ -694,14 +820,18 @@ const title = (s, t) => s.addText(t, { placeholder: 'title' });
     x: 1.2, y: 6.42, w: 11.0, h: 0.3, fontSize: 11, color: AMBER, bold: true,
   });
 
-  s.addNotes('收尾把五条按重要性排序，最后落到「下一步做什么」，让汇报有落点。');
+s.addNotes(
+    '【马家源 · 3:30–5:00】五条结论，90 秒。\n' +
+    '按重要性排序，第三条是重点（瓶颈是对话归属）。\n' +
+    '最后落到「下一步做什么」：给打分器加对话归属特征，比调层数、调学习率有用得多。让汇报有落点。'
+  );
 }
 
 // ============================================================
 // 16. 结束
 // ============================================================
 {
-  const s = pres.addSlide({ masterName: 'DARK' });
+  const s = pres.addSlide({ masterName: 'DARK', sectionTitle: '第四部分 · 发现与结论' });
   txt(s, '谢谢，欢迎提问', { x: 0.9, y: 2.55, w: 9, h: 1.0, fontSize: 40, bold: true, color: PAPER, fontFace: HEAD });
   txt(s, '代码、训练日志、消融结果与完整报告都在仓库里，可一条命令复现全部非 LLM 结果。', {
     x: 0.9, y: 3.7, w: 10.5, h: 0.4, fontSize: 13, color: SAND,
@@ -709,7 +839,11 @@ const title = (s, t) => s.addText(t, { placeholder: 'title' });
   txt(s, 'github.com/MinamiFi/machine_learning_homework', { x: 0.9, y: 4.25, w: 10.5, h: 0.34, fontSize: 13, color: AMBER, fontFace: MONO });
   txt(s, 'bash exp/scripts/run_all.sh --skip-l2　约 25 分钟', { x: 0.9, y: 4.62, w: 10.5, h: 0.34, fontSize: 12, color: '9AA9C0', fontFace: MONO });
 
-  s.addNotes('留 3–5 分钟提问。备好回答：为什么 B2 不显著、为什么不用 7B、标签怎么验证的。');
+s.addNotes(
+    '【马家源 · 5:00–6:00】收尾 60 秒。\n' +
+    '仓库地址 + 一条命令复现（25 分钟，不含 L2）。\n' +
+    '然后四人一起上台接受提问。备好三个答案：为什么 B2 不显著、为什么不用 7B、标签怎么验证的。'
+  );
 }
 
 // ---------- 输出 ----------
@@ -754,6 +888,21 @@ async function patchThemeFonts(pptxPath, fontFace) {
   });
   fs.writeFileSync(pptxPath, buf);
 }
+
+// ---------- 页脚讲者标记 ----------
+// 四个人接力讲，评委需要随时知道「现在是谁在讲、这是第几部分」。
+// 放在页码左侧，与页脚同基线，不新增视觉层级。
+pres.slides.forEach((sl, idx) => {
+  if (idx === 0) return; // 封面是全场共用的，不属于任何一位
+  const sp = SPEAKER_OF[idx + 1];
+  if (!sp) return;
+  const dark = idx + 1 === pres.slides.length; // 结束页是深色底
+  sl.addText(`${sp.part} · ${sp.name}`, {
+    x: 9.5, y: dark ? 6.85 : 6.88, w: 2.6, h: dark ? 0.3 : 0.28,
+    fontSize: dark ? 10 : 9.5, color: dark ? '9AA9C0' : SLATE,
+    fontFace: BODY, align: 'right', margin: 0, valign: 'middle',
+  });
+});
 
 pres.writeFile({ fileName: OUT })
   .then(async () => {
