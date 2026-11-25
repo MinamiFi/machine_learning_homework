@@ -107,7 +107,7 @@ exp/
 │   ├── verify_docs.py            # 文档数字自检（181 项，20 秒）
 │   ├── run_all.sh                # 一条命令复现全部实验
 │   ├── make_figures.py           # 出图（7 张，报告/PPT 用）
-│   ├── make_ppt.js               # 生成 16 页汇报 PPT（pptxgenjs + 主题后处理）
+│   ├── make_ppt.js               # 生成 35 页汇报 PPT（pptxgenjs + 主题后处理）
 │   ├── md2docx.py                # 报告 md → docx（无 pandoc 环境的轻量转换）
 │   ├── test_src.py               # 四模块单元自检（48 项，1 秒，不加载模型）
 │   └── smoke_test.py             # 三段式自检（加载 Qwen，90 秒）
