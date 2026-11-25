@@ -1,0 +1,46 @@
+{
+  "tag": "scorer_base_s0",
+  "config": {
+    "model": {
+      "input_dim": 384,
+      "hidden_dim": 256,
+      "num_layers": 2,
+      "dropout": 0.1,
+      "activation": "gelu"
+    },
+    "train": {
+      "lr": 0.0003,
+      "weight_decay": 0.0001,
+      "batch_size": 256,
+      "epochs": 20,
+      "patience": 3,
+      "early_stop_metric": "val_auc",
+      "pos_weight": "auto",
+      "seed": 0
+    }
+  },
+  "n_params": 165377,
+  "train_seconds": 10.39,
+  "total_seconds": 16.0,
+  "val_auc": 0.928412,
+  "val_position_auc": 0.806499,
+  "val_margin": 0.121914,
+  "test_auc": 0.933174,
+  "test_baselines": {
+    "R0": 0.817161,
+    "R0_abs": 0.763617,
+    "R1": 0.182839,
+    "R2": 0.503811,
+    "R3": 0.664959,
+    "LEN": 0.802297
+  },
+  "test_position_auc": {
+    "R0_rel": 0.817161,
+    "R0_abs": 0.763617,
+    "R1_rel": 0.182839,
+    "LEN": 0.802297
+  },
+  "test_margin_vs_best_baseline": 0.116013,
+  "best_epoch": 5,
+  "verdict": "PASS：显著超过所有零成本基线，方法成立，可以继续写下游"
+}

@@ -1,0 +1,454 @@
+{
+  "split": "test",
+  "lengths": [
+    128,
+    256,
+    512
+  ],
+  "n_scenarios_per_length": 30,
+  "budget": 2048,
+  "scorer": {
+    "val_auc": 0.9284,
+    "position_auc": 0.8065,
+    "margin": 0.1219
+  },
+  "scenario_tokens": {
+    "128": {
+      "n": 30,
+      "tokens_mean": 4458,
+      "tokens_median": 4406,
+      "tokens_max": 5047
+    },
+    "256": {
+      "n": 30,
+      "tokens_mean": 8913,
+      "tokens_median": 8869,
+      "tokens_max": 10056
+    },
+    "354": {
+      "n": 4,
+      "tokens_mean": 14000,
+      "tokens_median": 14000,
+      "tokens_max": 14007
+    },
+    "355": {
+      "n": 1,
+      "tokens_mean": 14047,
+      "tokens_median": 14047,
+      "tokens_max": 14047
+    },
+    "469": {
+      "n": 2,
+      "tokens_mean": 17928,
+      "tokens_median": 17928,
+      "tokens_max": 17929
+    },
+    "512": {
+      "n": 23,
+      "tokens_mean": 17237,
+      "tokens_median": 17311,
+      "tokens_max": 19416
+    }
+  },
+  "by_length": {
+    "128": {
+      "B0": {
+        "name": "B0",
+        "n_scenarios": 30,
+        "CR": 0.4,
+        "Recall@budget": 0.3429,
+        "NDCG@k": 0.0533,
+        "n_chosen": 60.57,
+        "fill_rate": 0.9987,
+        "tokens": 2045.3,
+        "seconds": 0.01
+      },
+      "B1": {
+        "name": "B1",
+        "n_scenarios": 30,
+        "CR": 0.7,
+        "Recall@budget": 0.5183,
+        "NDCG@k": 0.2122,
+        "n_chosen": 51.47,
+        "fill_rate": 0.9994,
+        "tokens": 2046.7,
+        "seconds": 0.25
+      },
+      "B2": {
+        "name": "B2",
+        "n_scenarios": 30,
+        "CR": 1.0,
+        "Recall@budget": 0.9238,
+        "NDCG@k": 0.33,
+        "n_chosen": 48.93,
+        "fill_rate": 0.9994,
+        "tokens": 2046.9,
+        "seconds": 0.02
+      },
+      "B2R": {
+        "name": "B2R",
+        "n_scenarios": 30,
+        "CR": 0.6333,
+        "Recall@budget": 0.5334,
+        "NDCG@k": 0.2708,
+        "n_chosen": 51.67,
+        "fill_rate": 0.9992,
+        "tokens": 2046.3,
+        "seconds": 0.26
+      },
+      "R0": {
+        "name": "R0",
+        "n_scenarios": 30,
+        "CR": 0.4333,
+        "Recall@budget": 0.5112,
+        "NDCG@k": 0.0852,
+        "n_chosen": 61.73,
+        "fill_rate": 0.9992,
+        "tokens": 2046.4,
+        "seconds": 0.0
+      },
+      "R0A": {
+        "name": "R0A",
+        "n_scenarios": 30,
+        "CR": 0.4,
+        "Recall@budget": 0.5362,
+        "NDCG@k": 0.2585,
+        "n_chosen": 54.77,
+        "fill_rate": 0.9995,
+        "tokens": 2046.9,
+        "seconds": 0.0
+      },
+      "R1": {
+        "name": "R1",
+        "n_scenarios": 30,
+        "CR": 0.4,
+        "Recall@budget": 0.3429,
+        "NDCG@k": 0.0533,
+        "n_chosen": 60.57,
+        "fill_rate": 0.9987,
+        "tokens": 2045.3,
+        "seconds": 0.0
+      },
+      "R2": {
+        "name": "R2",
+        "n_scenarios": 30,
+        "CR": 0.5,
+        "Recall@budget": 0.4925,
+        "NDCG@k": 0.1093,
+        "n_chosen": 62.43,
+        "fill_rate": 0.9991,
+        "tokens": 2046.1,
+        "seconds": 0.01
+      },
+      "R3": {
+        "name": "R3",
+        "n_scenarios": 30,
+        "CR": 0.4667,
+        "Recall@budget": 0.4938,
+        "NDCG@k": 0.1855,
+        "n_chosen": 55.53,
+        "fill_rate": 0.9988,
+        "tokens": 2045.6,
+        "seconds": 0.0
+      },
+      "LEN": {
+        "name": "LEN",
+        "n_scenarios": 30,
+        "CR": 0.8333,
+        "Recall@budget": 0.586,
+        "NDCG@k": 0.2331,
+        "n_chosen": 39.43,
+        "fill_rate": 0.9998,
+        "tokens": 2047.6,
+        "seconds": 0.0
+      }
+    },
+    "256": {
+      "B0": {
+        "name": "B0",
+        "n_scenarios": 30,
+        "CR": 0.1,
+        "Recall@budget": 0.1803,
+        "NDCG@k": 0.0526,
+        "n_chosen": 61.4,
+        "fill_rate": 0.9994,
+        "tokens": 2046.8,
+        "seconds": 0.01
+      },
+      "B1": {
+        "name": "B1",
+        "n_scenarios": 30,
+        "CR": 0.4,
+        "Recall@budget": 0.347,
+        "NDCG@k": 0.1506,
+        "n_chosen": 51.07,
+        "fill_rate": 0.9996,
+        "tokens": 2047.1,
+        "seconds": 0.25
+      },
+      "B2": {
+        "name": "B2",
+        "n_scenarios": 30,
+        "CR": 0.7667,
+        "Recall@budget": 0.5479,
+        "NDCG@k": 0.1913,
+        "n_chosen": 46.03,
+        "fill_rate": 0.9993,
+        "tokens": 2046.5,
+        "seconds": 0.03
+      },
+      "B2R": {
+        "name": "B2R",
+        "n_scenarios": 30,
+        "CR": 0.5,
+        "Recall@budget": 0.3731,
+        "NDCG@k": 0.1683,
+        "n_chosen": 51.3,
+        "fill_rate": 0.9992,
+        "tokens": 2046.3,
+        "seconds": 0.27
+      },
+      "R0": {
+        "name": "R0",
+        "n_scenarios": 30,
+        "CR": 0.2,
+        "Recall@budget": 0.2676,
+        "NDCG@k": 0.0538,
+        "n_chosen": 62.73,
+        "fill_rate": 0.9993,
+        "tokens": 2046.6,
+        "seconds": 0.01
+      },
+      "R0A": {
+        "name": "R0A",
+        "n_scenarios": 30,
+        "CR": 0.0667,
+        "Recall@budget": 0.3495,
+        "NDCG@k": 0.1543,
+        "n_chosen": 55.03,
+        "fill_rate": 0.9996,
+        "tokens": 2047.1,
+        "seconds": 0.01
+      },
+      "R1": {
+        "name": "R1",
+        "n_scenarios": 30,
+        "CR": 0.1,
+        "Recall@budget": 0.1803,
+        "NDCG@k": 0.0526,
+        "n_chosen": 61.4,
+        "fill_rate": 0.9994,
+        "tokens": 2046.8,
+        "seconds": 0.01
+      },
+      "R2": {
+        "name": "R2",
+        "n_scenarios": 30,
+        "CR": 0.1667,
+        "Recall@budget": 0.208,
+        "NDCG@k": 0.0302,
+        "n_chosen": 61.87,
+        "fill_rate": 0.9994,
+        "tokens": 2046.8,
+        "seconds": 0.01
+      },
+      "R3": {
+        "name": "R3",
+        "n_scenarios": 30,
+        "CR": 0.1,
+        "Recall@budget": 0.1416,
+        "NDCG@k": 0.125,
+        "n_chosen": 55.1,
+        "fill_rate": 0.9994,
+        "tokens": 2046.8,
+        "seconds": 0.01
+      },
+      "LEN": {
+        "name": "LEN",
+        "n_scenarios": 30,
+        "CR": 0.5333,
+        "Recall@budget": 0.3764,
+        "NDCG@k": 0.1057,
+        "n_chosen": 33.87,
+        "fill_rate": 1.0,
+        "tokens": 2047.9,
+        "seconds": 0.01
+      }
+    },
+    "512": {
+      "B0": {
+        "name": "B0",
+        "n_scenarios": 30,
+        "CR": 0.0,
+        "Recall@budget": 0.0609,
+        "NDCG@k": 0.0168,
+        "n_chosen": 61.43,
+        "fill_rate": 0.9995,
+        "tokens": 2046.9,
+        "seconds": 0.01
+      },
+      "B1": {
+        "name": "B1",
+        "n_scenarios": 30,
+        "CR": 0.3333,
+        "Recall@budget": 0.2293,
+        "NDCG@k": 0.0996,
+        "n_chosen": 51.27,
+        "fill_rate": 0.9997,
+        "tokens": 2047.3,
+        "seconds": 0.27
+      },
+      "B2": {
+        "name": "B2",
+        "n_scenarios": 30,
+        "CR": 0.5333,
+        "Recall@budget": 0.3437,
+        "NDCG@k": 0.1128,
+        "n_chosen": 45.33,
+        "fill_rate": 0.9994,
+        "tokens": 2046.8,
+        "seconds": 0.06
+      },
+      "B2R": {
+        "name": "B2R",
+        "n_scenarios": 30,
+        "CR": 0.3667,
+        "Recall@budget": 0.2507,
+        "NDCG@k": 0.1157,
+        "n_chosen": 51.23,
+        "fill_rate": 0.9993,
+        "tokens": 2046.6,
+        "seconds": 0.27
+      },
+      "R0": {
+        "name": "R0",
+        "n_scenarios": 30,
+        "CR": 0.2,
+        "Recall@budget": 0.1685,
+        "NDCG@k": 0.033,
+        "n_chosen": 62.27,
+        "fill_rate": 0.9996,
+        "tokens": 2047.1,
+        "seconds": 0.01
+      },
+      "R0A": {
+        "name": "R0A",
+        "n_scenarios": 30,
+        "CR": 0.0,
+        "Recall@budget": 0.1343,
+        "NDCG@k": 0.0593,
+        "n_chosen": 55.8,
+        "fill_rate": 0.9996,
+        "tokens": 2047.1,
+        "seconds": 0.01
+      },
+      "R1": {
+        "name": "R1",
+        "n_scenarios": 30,
+        "CR": 0.0,
+        "Recall@budget": 0.0609,
+        "NDCG@k": 0.0168,
+        "n_chosen": 61.43,
+        "fill_rate": 0.9995,
+        "tokens": 2046.9,
+        "seconds": 0.01
+      },
+      "R2": {
+        "name": "R2",
+        "n_scenarios": 30,
+        "CR": 0.0667,
+        "Recall@budget": 0.1187,
+        "NDCG@k": 0.0244,
+        "n_chosen": 62.63,
+        "fill_rate": 0.9995,
+        "tokens": 2046.9,
+        "seconds": 0.02
+      },
+      "R3": {
+        "name": "R3",
+        "n_scenarios": 30,
+        "CR": 0.0333,
+        "Recall@budget": 0.0178,
+        "NDCG@k": 0.0716,
+        "n_chosen": 53.8,
+        "fill_rate": 0.9995,
+        "tokens": 2047.1,
+        "seconds": 0.01
+      },
+      "LEN": {
+        "name": "LEN",
+        "n_scenarios": 30,
+        "CR": 0.3,
+        "Recall@budget": 0.1235,
+        "NDCG@k": 0.0424,
+        "n_chosen": 30.4,
+        "fill_rate": 1.0,
+        "tokens": 2048.0,
+        "seconds": 0.01
+      }
+    }
+  },
+  "overall": {
+    "B0": {
+      "CR": 0.1667,
+      "Recall@budget": 0.1947,
+      "NDCG@k": 0.0409,
+      "fill_rate": 0.9992
+    },
+    "B1": {
+      "CR": 0.4778,
+      "Recall@budget": 0.3649,
+      "NDCG@k": 0.1541,
+      "fill_rate": 0.9996
+    },
+    "B2": {
+      "CR": 0.7667,
+      "Recall@budget": 0.6051,
+      "NDCG@k": 0.2114,
+      "fill_rate": 0.9994
+    },
+    "B2R": {
+      "CR": 0.5,
+      "Recall@budget": 0.3857,
+      "NDCG@k": 0.1849,
+      "fill_rate": 0.9992
+    },
+    "R0": {
+      "CR": 0.2778,
+      "Recall@budget": 0.3158,
+      "NDCG@k": 0.0573,
+      "fill_rate": 0.9994
+    },
+    "R0A": {
+      "CR": 0.1556,
+      "Recall@budget": 0.34,
+      "NDCG@k": 0.1574,
+      "fill_rate": 0.9996
+    },
+    "R1": {
+      "CR": 0.1667,
+      "Recall@budget": 0.1947,
+      "NDCG@k": 0.0409,
+      "fill_rate": 0.9992
+    },
+    "R2": {
+      "CR": 0.2445,
+      "Recall@budget": 0.2731,
+      "NDCG@k": 0.0546,
+      "fill_rate": 0.9993
+    },
+    "R3": {
+      "CR": 0.2,
+      "Recall@budget": 0.2177,
+      "NDCG@k": 0.1274,
+      "fill_rate": 0.9992
+    },
+    "LEN": {
+      "CR": 0.5555,
+      "Recall@budget": 0.362,
+      "NDCG@k": 0.1271,
+      "fill_rate": 0.9999
+    }
+  },
+  "total_seconds": 153.6
+}

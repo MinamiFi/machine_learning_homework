@@ -1,0 +1,25 @@
+# 对话智能体配置。backbone 二选一：local（离线开发）/ api（正式实验）。
+# API key 一律从环境变量读，不写进本文件，也不进 git。
+
+backbone: api
+
+local:
+  path: models/Qwen2.5-0.5B-Instruct
+  dtype: float32
+  max_new_tokens: 128
+  temperature: 0.0
+  top_p: 1.0
+
+api:
+  base_url: "https://agi.tongji.edu.cn/v1"
+  model: "DeepSeek-V4.1-Flash"
+  api_key_env: DSH_EXP_API_KEY      # 值只放环境变量，不进仓库
+  temperature: 0.0
+  max_tokens: 256
+  # 该端点是推理模型，默认先想 40 token 再答。填空任务只需几个 token，
+  # 关掉推理（实测 reasoning_tokens → 0，延迟 0.68s → 0.36s，答案不变）。
+  reasoning_effort: "none"
+
+budget:
+  max_context_tokens: 2048   # 题目里的 token 预算 B
+  reserve_recent_turns: 2    # 保底保留的最近轮数（README §3.5）

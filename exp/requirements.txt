@@ -1,0 +1,10 @@
+# 实验直接依赖（torch 单独装，见 requirements-torch.txt）
+# 版本锁在 2024 年末这一批：互相验证过、Qwen2.5 支持完整、CPU 上稳定。
+transformers==4.46.3
+sentence-transformers==3.3.1
+huggingface-hub==0.26.2
+accelerate==1.1.1
+scikit-learn==1.5.2
+pyarrow==26.0.1        # 读 MultiWOZ parquet
+tqdm==4.67.0
+PyYAML==6.0.2

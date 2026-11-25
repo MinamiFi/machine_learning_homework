@@ -1,0 +1,637 @@
+{
+  "split": "test",
+  "budget": 2048,
+  "n_per_length": 30,
+  "by_length": {
+    "128": {
+      "intro": {
+        "name": "INTRO",
+        "n_scenarios": 30,
+        "CR": 1.0,
+        "Recall@budget": 0.9238,
+        "NDCG@k": 0.33,
+        "n_chosen": 48.93,
+        "fill_rate": 0.9994,
+        "tokens": 2046.9,
+        "seconds": 0.03
+      },
+      "nec": {
+        "name": "NEC",
+        "n_scenarios": 30,
+        "CR": 1.0,
+        "Recall@budget": 0.8824,
+        "NDCG@k": 0.336,
+        "n_chosen": 48.73,
+        "fill_rate": 0.9991,
+        "tokens": 2046.2,
+        "seconds": 0.02
+      }
+    },
+    "256": {
+      "intro": {
+        "name": "INTRO",
+        "n_scenarios": 30,
+        "CR": 0.7667,
+        "Recall@budget": 0.5479,
+        "NDCG@k": 0.1913,
+        "n_chosen": 46.03,
+        "fill_rate": 0.9993,
+        "tokens": 2046.5,
+        "seconds": 0.04
+      },
+      "nec": {
+        "name": "NEC",
+        "n_scenarios": 30,
+        "CR": 0.8,
+        "Recall@budget": 0.5525,
+        "NDCG@k": 0.192,
+        "n_chosen": 46.7,
+        "fill_rate": 0.9994,
+        "tokens": 2046.7,
+        "seconds": 0.03
+      }
+    },
+    "512": {
+      "intro": {
+        "name": "INTRO",
+        "n_scenarios": 30,
+        "CR": 0.5333,
+        "Recall@budget": 0.3437,
+        "NDCG@k": 0.1128,
+        "n_chosen": 45.33,
+        "fill_rate": 0.9994,
+        "tokens": 2046.8,
+        "seconds": 0.06
+      },
+      "nec": {
+        "name": "NEC",
+        "n_scenarios": 30,
+        "CR": 0.5333,
+        "Recall@budget": 0.3183,
+        "NDCG@k": 0.1132,
+        "n_chosen": 43.6,
+        "fill_rate": 0.9994,
+        "tokens": 2046.9,
+        "seconds": 0.05
+      }
+    }
+  },
+  "per_scenario": [
+    {
+      "scenario_id": "MUL0003.json_L128_p0.80_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0004.json_L128_p0.44_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0011.json_L128_p0.77_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0014.json_L128_p0.41_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0018.json_L128_p0.17_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0021.json_L128_p0.13_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0034.json_L128_p0.85_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0035.json_L128_p0.34_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0071.json_L128_p0.84_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0072.json_L128_p0.28_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0073.json_L128_p0.44_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0080.json_L128_p0.47_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0088.json_L128_p0.83_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0089.json_L128_p0.58_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0099.json_L128_p0.67_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0113.json_L128_p0.05_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0116.json_L128_p0.04_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0144.json_L128_p0.43_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0148.json_L128_p0.59_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0172.json_L128_p0.86_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0197.json_L128_p0.57_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0198.json_L128_p0.79_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0199.json_L128_p0.17_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0208.json_L128_p0.26_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0212.json_L128_p0.05_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0222.json_L128_p0.32_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0225.json_L128_p0.06_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0228.json_L128_p0.15_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0230.json_L128_p0.68_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0233.json_L128_p0.56_s0",
+      "L": 128,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0003.json_L256_p0.23_s0",
+      "L": 256,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0004.json_L256_p0.57_s0",
+      "L": 256,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0011.json_L256_p0.11_s0",
+      "L": 256,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0014.json_L256_p0.79_s0",
+      "L": 256,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0018.json_L256_p0.04_s0",
+      "L": 256,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0021.json_L256_p0.67_s0",
+      "L": 256,
+      "intro": 1.0,
+      "nec": 0.0
+    },
+    {
+      "scenario_id": "MUL0034.json_L256_p0.66_s0",
+      "L": 256,
+      "intro": 0.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0035.json_L256_p0.08_s0",
+      "L": 256,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0071.json_L256_p0.22_s0",
+      "L": 256,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0072.json_L256_p0.87_s0",
+      "L": 256,
+      "intro": 0.0,
+      "nec": 0.0
+    },
+    {
+      "scenario_id": "MUL0073.json_L256_p0.70_s0",
+      "L": 256,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0080.json_L256_p0.43_s0",
+      "L": 256,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0088.json_L256_p0.58_s0",
+      "L": 256,
+      "intro": 1.0,
+      "nec": 0.0
+    },
+    {
+      "scenario_id": "MUL0089.json_L256_p0.66_s0",
+      "L": 256,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0099.json_L256_p0.87_s0",
+      "L": 256,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0113.json_L256_p0.32_s0",
+      "L": 256,
+      "intro": 1.0,
+      "nec": 0.0
+    },
+    {
+      "scenario_id": "MUL0116.json_L256_p0.33_s0",
+      "L": 256,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0144.json_L256_p0.46_s0",
+      "L": 256,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0148.json_L256_p0.37_s0",
+      "L": 256,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0172.json_L256_p0.25_s0",
+      "L": 256,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0197.json_L256_p0.10_s0",
+      "L": 256,
+      "intro": 0.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0198.json_L256_p0.06_s0",
+      "L": 256,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0199.json_L256_p0.57_s0",
+      "L": 256,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0208.json_L256_p0.47_s0",
+      "L": 256,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0212.json_L256_p0.61_s0",
+      "L": 256,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0222.json_L256_p0.41_s0",
+      "L": 256,
+      "intro": 0.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0225.json_L256_p0.25_s0",
+      "L": 256,
+      "intro": 0.0,
+      "nec": 0.0
+    },
+    {
+      "scenario_id": "MUL0228.json_L256_p0.71_s0",
+      "L": 256,
+      "intro": 0.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0230.json_L256_p0.78_s0",
+      "L": 256,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0233.json_L256_p0.39_s0",
+      "L": 256,
+      "intro": 0.0,
+      "nec": 0.0
+    },
+    {
+      "scenario_id": "MUL0003.json_L512_p0.55_s0",
+      "L": 512,
+      "intro": 0.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0004.json_L512_p0.42_s0",
+      "L": 512,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0011.json_L512_p0.40_s0",
+      "L": 512,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0014.json_L512_p0.63_s0",
+      "L": 512,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0018.json_L512_p0.67_s0",
+      "L": 512,
+      "intro": 0.0,
+      "nec": 0.0
+    },
+    {
+      "scenario_id": "MUL0021.json_L512_p0.02_s0",
+      "L": 512,
+      "intro": 1.0,
+      "nec": 0.0
+    },
+    {
+      "scenario_id": "MUL0034.json_L512_p0.48_s0",
+      "L": 512,
+      "intro": 0.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0035.json_L512_p0.36_s0",
+      "L": 512,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0071.json_L512_p0.32_s0",
+      "L": 512,
+      "intro": 0.0,
+      "nec": 0.0
+    },
+    {
+      "scenario_id": "MUL0072.json_L512_p0.04_s0",
+      "L": 512,
+      "intro": 0.0,
+      "nec": 0.0
+    },
+    {
+      "scenario_id": "MUL0073.json_L512_p0.45_s0",
+      "L": 512,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0080.json_L512_p0.00_s0",
+      "L": 512,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0088.json_L512_p0.65_s0",
+      "L": 512,
+      "intro": 0.0,
+      "nec": 0.0
+    },
+    {
+      "scenario_id": "MUL0089.json_L512_p0.51_s0",
+      "L": 512,
+      "intro": 0.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0099.json_L512_p0.28_s0",
+      "L": 512,
+      "intro": 1.0,
+      "nec": 0.0
+    },
+    {
+      "scenario_id": "MUL0113.json_L512_p0.13_s0",
+      "L": 512,
+      "intro": 0.0,
+      "nec": 0.0
+    },
+    {
+      "scenario_id": "MUL0116.json_L512_p0.57_s0",
+      "L": 512,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0144.json_L512_p0.40_s0",
+      "L": 512,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0148.json_L512_p0.84_s0",
+      "L": 512,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0172.json_L512_p0.28_s0",
+      "L": 512,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0197.json_L512_p0.43_s0",
+      "L": 512,
+      "intro": 0.0,
+      "nec": 0.0
+    },
+    {
+      "scenario_id": "MUL0198.json_L512_p0.01_s0",
+      "L": 512,
+      "intro": 1.0,
+      "nec": 0.0
+    },
+    {
+      "scenario_id": "MUL0199.json_L512_p0.31_s0",
+      "L": 512,
+      "intro": 0.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0208.json_L512_p0.05_s0",
+      "L": 512,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0212.json_L512_p0.42_s0",
+      "L": 512,
+      "intro": 1.0,
+      "nec": 0.0
+    },
+    {
+      "scenario_id": "MUL0222.json_L512_p0.63_s0",
+      "L": 512,
+      "intro": 0.0,
+      "nec": 0.0
+    },
+    {
+      "scenario_id": "MUL0225.json_L512_p0.10_s0",
+      "L": 512,
+      "intro": 0.0,
+      "nec": 0.0
+    },
+    {
+      "scenario_id": "MUL0228.json_L512_p0.25_s0",
+      "L": 512,
+      "intro": 0.0,
+      "nec": 0.0
+    },
+    {
+      "scenario_id": "MUL0230.json_L512_p0.77_s0",
+      "L": 512,
+      "intro": 1.0,
+      "nec": 1.0
+    },
+    {
+      "scenario_id": "MUL0233.json_L512_p0.82_s0",
+      "L": 512,
+      "intro": 0.0,
+      "nec": 0.0
+    }
+  ],
+  "cr_overall": {
+    "intro": 0.7667,
+    "nec": 0.7778
+  },
+  "paired": {
+    "n": 90,
+    "intro_mean": 0.7667,
+    "nec_mean": 0.7778,
+    "diff": -0.0111,
+    "ci_low": -0.0889,
+    "ci_high": 0.0667,
+    "p_two_sided": 0.896,
+    "intro_wins": 7,
+    "nec_wins": 8,
+    "ties": 75
+  }
+}

@@ -1,0 +1,207 @@
+{
+  "split": "test",
+  "n_dialogues_usable": 672,
+  "n_dialogues_total": 1000,
+  "k_stats": {
+    "median": 2,
+    "mean": 1.826,
+    "max": 8
+  },
+  "conditions": {
+    "drop_pos": {
+      "pooled_loss_rate": 0.2684,
+      "lost": 1216,
+      "measurable": 4531
+    },
+    "drop_neg": {
+      "pooled_loss_rate": 0.0353,
+      "lost": 160,
+      "measurable": 4531
+    },
+    "drop_neg_matched": {
+      "pooled_loss_rate": 0.0349,
+      "lost": 158,
+      "measurable": 4531
+    },
+    "drop_rand": {
+      "pooled_loss_rate": 0.1911,
+      "lost": 866,
+      "measurable": 4531
+    }
+  },
+  "position_confound": {
+    "drop_pos_mean": 1.311,
+    "drop_neg_mean": 3.371,
+    "drop_neg_matched_mean": 3.401
+  },
+  "position_stratified": {
+    "max_pos": 2,
+    "conditions": {
+      "drop_pos": {
+        "loss_rate": 0.2074,
+        "lost": 939,
+        "measurable": 4527,
+        "n_dropped_turns": 990
+      },
+      "drop_neg": {
+        "loss_rate": 0.0213,
+        "lost": 61,
+        "measurable": 2859,
+        "n_dropped_turns": 521
+      }
+    },
+    "paired": {
+      "n_dialogues": 454,
+      "conditions": {
+        "drop_pos": {
+          "loss_rate": 0.2217,
+          "lost": 633,
+          "measurable": 2855
+        },
+        "drop_neg": {
+          "loss_rate": 0.021,
+          "lost": 60,
+          "measurable": 2855
+        }
+      }
+    },
+    "ratio": 9.74,
+    "ratio_paired": 10.56
+  },
+  "paired_tests": {
+    "pos_vs_neg": {
+      "mean_diff": 0.26099799586209776,
+      "ci_low": 0.23849892181037136,
+      "ci_high": 0.2842695287067333,
+      "p_two_sided": 0.0,
+      "n_dialogues": 672
+    },
+    "pos_vs_neg_matched": {
+      "mean_diff": 0.2615826047056352,
+      "ci_low": 0.23890114201153456,
+      "ci_high": 0.2846068612650479,
+      "p_two_sided": 0.0,
+      "n_dialogues": 672
+    },
+    "pos_vs_rand": {
+      "mean_diff": 0.0921339511183261,
+      "ci_low": 0.07035091427669553,
+      "ci_high": 0.11275057686609026,
+      "p_two_sided": 0.0,
+      "n_dialogues": 672
+    },
+    "neg_vs_rand": {
+      "mean_diff": -0.16886404474377162,
+      "ci_low": -0.1865952564191469,
+      "ci_high": -0.15247927530326427,
+      "p_two_sided": 0.0,
+      "n_dialogues": 672
+    },
+    "neg_matched_vs_rand": {
+      "mean_diff": -0.16944865358730904,
+      "ci_low": -0.1870585879736024,
+      "ci_high": -0.15324965223074466,
+      "p_two_sided": 0.0,
+      "n_dialogues": 672
+    }
+  },
+  "necessity": {
+    "n_turns": 4200,
+    "pos_rate": 0.699,
+    "mean_necessity_label1": 0.9298,
+    "mean_necessity_label0": 0.1171,
+    "auc_necessity_predicts_label": 0.7494,
+    "auc_binarized": 0.7436,
+    "redundant_pos_rate": 0.4203,
+    "distribution": {
+      "0": {
+        "n": 2381,
+        "pos_rate": 0.5183
+      },
+      "1": {
+        "n": 1082,
+        "pos_rate": 0.9159
+      },
+      "2": {
+        "n": 474,
+        "pos_rate": 0.9515
+      },
+      "3": {
+        "n": 216,
+        "pos_rate": 0.9907
+      },
+      "4": {
+        "n": 36,
+        "pos_rate": 1.0
+      },
+      "5": {
+        "n": 10,
+        "pos_rate": 0.9
+      },
+      "6": {
+        "n": 1,
+        "pos_rate": 1.0
+      }
+    }
+  },
+  "coverage_ceiling": {
+    "total_turns": 4200,
+    "min_cover_turns": 2132,
+    "deletable_turns": 2068,
+    "deletable_rate": 0.4924,
+    "pos_total": 2936,
+    "pos_in_cover": 1957,
+    "pos_dropped_rate": 0.3334
+  },
+  "unmeasurable": {
+    "total_gold_slots": 6941,
+    "unmeasurable": 791,
+    "by_reason": {
+      "符号值（yes/no/dontcare）": 502,
+      "原文无字面匹配（同义表达）": 289
+    },
+    "top_slots": [
+      [
+        "hotel-internet",
+        174
+      ],
+      [
+        "hotel-parking",
+        160
+      ],
+      [
+        "train-people",
+        37
+      ],
+      [
+        "hotel-area",
+        35
+      ],
+      [
+        "attraction-name",
+        35
+      ],
+      [
+        "attraction-area",
+        29
+      ],
+      [
+        "hotel-pricerange",
+        27
+      ],
+      [
+        "train-leaveat",
+        25
+      ],
+      [
+        "hotel-stars",
+        24
+      ],
+      [
+        "hotel-name",
+        24
+      ]
+    ]
+  },
+  "seconds": 1.5
+}

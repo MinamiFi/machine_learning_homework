@@ -1,0 +1,19 @@
+# 打分网络默认配置，对应根目录 README §3.4。
+# 消融实验只改这一个文件里的字段（层数 / lr / weight_decay），其余固定。
+
+model:
+  input_dim: 384
+  hidden_dim: 256
+  num_layers: 2          # 消融因素 1
+  dropout: 0.1
+  activation: gelu
+
+train:
+  lr: 3.0e-4             # 消融因素 2
+  weight_decay: 1.0e-4   # 消融因素 3（即 L2 正则强度）
+  batch_size: 256
+  epochs: 20
+  patience: 3
+  early_stop_metric: val_auc
+  pos_weight: auto       # auto = 负例数 / 正例数
+  seed: 0

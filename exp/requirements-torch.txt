@@ -1,0 +1,3 @@
+# CPU-only torch：必须从 CPU 索引装，否则会拉 2GB+ 的 CUDA 依赖
+# 与 requirements.txt 分开，因为需要 --index-url
+torch==2.5.1

@@ -1,0 +1,70 @@
+# ==== 大文件：不进仓库，用脚本重建 ====
+
+# 模型权重（约 1.1 GB，用 exp/scripts/download_models.py 下载）
+exp/models/*
+!exp/models/.gitkeep
+
+# 处理后的中间数据（约 259 MB，用 prepare_multiwoz.py + build_memory.py 重建）
+# 原始 parquet（约 9.5 MB）保留在 exp/data/raw/，它是可复现的起点
+exp/data/processed/
+
+# HuggingFace 缓存
+exp/.cache/
+.cache/
+
+# 生成的交付压缩包（由 exp/scripts/make_delivery.py + 打包命令重建）
+*.zip
+
+# ==== 密钥：绝对不能提交 ====
+exp/env.api.sh
+.env
+.env.*
+*.local.yaml
+secrets.yaml
+
+# ==== Python ====
+__pycache__/
+*.py[cod]
+*.so
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# ==== 编辑器 / 系统 ====
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# ==== 运行日志：每次跑都会变 ====
+exp/logs/*
+!exp/logs/.gitkeep
+
+# ==== 实验产物：只保留 12 个权威 run ====
+# 其余是调试中间结果或已作废的重跑（详见 交付/交付说明.md 第 4 节）。
+# 这些目录被 verify_docs.py 与 make_figures.py 直接读取，所以必须提交。
+exp/runs/*
+!exp/runs/.gitkeep
+!exp/runs/20261124_021731_scorer_scorer_base_s0_s0/
+!exp/runs/20261124_092829_eval_l1_eval_l1_full2/
+!exp/runs/20261124_022842_ablation/
+!exp/runs/20261124_093413_budget/
+!exp/runs/20261124_032401_counterfactual_counterfactual_test/
+!exp/runs/20261124_022143_counterfactual_counterfactual_dev/
+!exp/runs/20261124_022148_counterfactual_counterfactual_train/
+!exp/runs/20261124_093705_necessity_l1/
+!exp/runs/20261124_030223_necessity/
+!exp/runs/20261124_033153_spot_check2_n200/
+!exp/runs/20261124_081620_jga_api_full/
+!exp/runs/20261124_094210_eval_l2_l2_main_api2/
+
+# ==== 交付目录：只有两份手写文档进仓库，其余由 make_delivery.py 生成 ====
+# 生成物都是 exp/ 的副本（代码、图、run、parquet、日志），提交会让仓库出现两份相同代码。
+交付/*
+!交付/交付说明.md
+!交付/报告/
+交付/报告/*
+!交付/报告/实验报告.md

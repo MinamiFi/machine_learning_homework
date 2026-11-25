@@ -1,0 +1,211 @@
+{
+  "split": "train",
+  "n_dialogues_usable": 5115,
+  "n_dialogues_total": 8437,
+  "k_stats": {
+    "median": 2,
+    "mean": 1.839,
+    "max": 8
+  },
+  "conditions": {
+    "drop_pos": {
+      "pooled_loss_rate": 0.2836,
+      "lost": 9304,
+      "measurable": 32812
+    },
+    "drop_neg": {
+      "pooled_loss_rate": 0.0312,
+      "lost": 1025,
+      "measurable": 32812
+    },
+    "drop_neg_matched": {
+      "pooled_loss_rate": 0.0315,
+      "lost": 1034,
+      "measurable": 32812
+    },
+    "drop_rand": {
+      "pooled_loss_rate": 0.1919,
+      "lost": 6297,
+      "measurable": 32812
+    }
+  },
+  "position_confound": {
+    "drop_pos_mean": 1.442,
+    "drop_neg_mean": 3.255,
+    "drop_neg_matched_mean": 3.303
+  },
+  "position_stratified": {
+    "max_pos": 2,
+    "conditions": {
+      "drop_pos": {
+        "loss_rate": 0.2174,
+        "lost": 7111,
+        "measurable": 32707,
+        "n_dropped_turns": 7385
+      },
+      "drop_neg": {
+        "loss_rate": 0.0217,
+        "lost": 476,
+        "measurable": 21927,
+        "n_dropped_turns": 4235
+      }
+    },
+    "paired": {
+      "n_dialogues": 3657,
+      "conditions": {
+        "drop_pos": {
+          "loss_rate": 0.2324,
+          "lost": 5072,
+          "measurable": 21822
+        },
+        "drop_neg": {
+          "loss_rate": 0.0217,
+          "lost": 473,
+          "measurable": 21822
+        }
+      }
+    },
+    "ratio": 10.02,
+    "ratio_paired": 10.71
+  },
+  "paired_tests": {
+    "pos_vs_neg": {
+      "mean_diff": 0.27676003844927427,
+      "ci_low": 0.26853796385102446,
+      "ci_high": 0.2852142519255034,
+      "p_two_sided": 0.0,
+      "n_dialogues": 5115
+    },
+    "pos_vs_neg_matched": {
+      "mean_diff": 0.2764193673901281,
+      "ci_low": 0.2684444206715856,
+      "ci_high": 0.28494496780915407,
+      "p_two_sided": 0.0,
+      "n_dialogues": 5115
+    },
+    "pos_vs_rand": {
+      "mean_diff": 0.10506522962275937,
+      "ci_low": 0.09678046410205286,
+      "ci_high": 0.11284307154664666,
+      "p_two_sided": 0.0,
+      "n_dialogues": 5115
+    },
+    "neg_vs_rand": {
+      "mean_diff": -0.17169480882651486,
+      "ci_low": -0.17821169109068022,
+      "ci_high": -0.16555301218836238,
+      "p_two_sided": 0.0,
+      "n_dialogues": 5115
+    },
+    "neg_matched_vs_rand": {
+      "mean_diff": -0.17135413776736874,
+      "ci_low": -0.1778285103857706,
+      "ci_high": -0.16516616091878084,
+      "p_two_sided": 0.0,
+      "n_dialogues": 5115
+    }
+  },
+  "necessity": {
+    "n_turns": 31316,
+    "pos_rate": 0.6851,
+    "mean_necessity_label1": 0.8977,
+    "mean_necessity_label0": 0.1016,
+    "auc_necessity_predicts_label": 0.7478,
+    "auc_binarized": 0.7416,
+    "redundant_pos_rate": 0.4326,
+    "distribution": {
+      "0": {
+        "n": 18315,
+        "pos_rate": 0.5068
+      },
+      "1": {
+        "n": 7736,
+        "pos_rate": 0.9111
+      },
+      "2": {
+        "n": 3632,
+        "pos_rate": 0.9689
+      },
+      "3": {
+        "n": 1325,
+        "pos_rate": 0.9819
+      },
+      "4": {
+        "n": 261,
+        "pos_rate": 0.9847
+      },
+      "5": {
+        "n": 41,
+        "pos_rate": 1.0
+      },
+      "6": {
+        "n": 5,
+        "pos_rate": 1.0
+      },
+      "7": {
+        "n": 1,
+        "pos_rate": 1.0
+      }
+    }
+  },
+  "coverage_ceiling": {
+    "total_turns": 31316,
+    "min_cover_turns": 15382,
+    "deletable_turns": 15934,
+    "deletable_rate": 0.5088,
+    "pos_total": 21454,
+    "pos_in_cover": 14120,
+    "pos_dropped_rate": 0.3418
+  },
+  "unmeasurable": {
+    "total_gold_slots": 50605,
+    "unmeasurable": 6192,
+    "by_reason": {
+      "符号值（yes/no/dontcare）": 4119,
+      "原文无字面匹配（同义表达）": 2073
+    },
+    "top_slots": [
+      [
+        "hotel-parking",
+        1401
+      ],
+      [
+        "hotel-internet",
+        1341
+      ],
+      [
+        "hotel-area",
+        301
+      ],
+      [
+        "restaurant-area",
+        247
+      ],
+      [
+        "restaurant-food",
+        209
+      ],
+      [
+        "hotel-name",
+        205
+      ],
+      [
+        "restaurant-pricerange",
+        204
+      ],
+      [
+        "hotel-pricerange",
+        202
+      ],
+      [
+        "attraction-type",
+        200
+      ],
+      [
+        "train-people",
+        185
+      ]
+    ]
+  },
+  "seconds": 4.2
+}
