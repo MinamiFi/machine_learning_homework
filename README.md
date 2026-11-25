@@ -7,7 +7,7 @@
 - **文档版本**：v7 ｜ 2026-11-24 ｜ 接入真 backbone + 修复 `hash()` 随机盐（见[附录 F](#附录-fv6--v7-修订记录接入-api--修复可复现性)）
 - **进度**：环境、模型、数据、标签、`memory`/`scorer`/`eval`/`agent` 四模块代码均已就绪；**L1 选择质量、消融、预算扫描、标签三重校验（覆盖率 + JGA + 模拟抽检 κ）、L2 任务完成率（API backbone）全部跑完**（见 [`exp/docs/L1实验结果.md`](exp/docs/L1实验结果.md)、[`exp/docs/L2任务完成率.md`](exp/docs/L2任务完成率.md)、[`exp/docs/L2_JGA校验.md`](exp/docs/L2_JGA校验.md)、[`exp/docs/标签抽检.md`](exp/docs/标签抽检.md)）；文档数字自检 **181 项全通过**；单元自检 48 项全通过
 
-**📦 一键下载完整交付包**：[`advml-topic3-memory-scoring-delivery.zip`](https://github.com/MinamiFi/machine_learning_homework/releases/download/v1.0-delivery/advml-topic3-memory-scoring-delivery.zip)（11.4 MB，120 文件）—— 报告 md+docx、35 页 PPT、四模块代码、训练日志、消融原始结果、7 张图、12 个权威 run、数据样本、交付说明。全部交付物打成一个包，解压即用。也可在 [Releases 页面](https://github.com/MinamiFi/machine_learning_homework/releases) 查看说明。
+**📦 一键下载完整交付包**：[`advml-topic3-memory-scoring-delivery.zip`](https://github.com/MinamiFi/machine_learning_homework/releases/download/v1.0-delivery/advml-topic3-memory-scoring-delivery.zip)（约 12 MB，120 文件）—— 报告 md+docx、35 页 PPT、四模块代码、训练日志、消融原始结果、7 张图、12 个权威 run、数据样本、交付说明。全部交付物打成一个包，解压即用。也可在 [Releases 页面](https://github.com/MinamiFi/machine_learning_homework/releases) 查看说明。
 
 **快速上手**：
 
